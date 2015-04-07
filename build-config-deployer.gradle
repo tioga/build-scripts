@@ -12,19 +12,17 @@ task (uploadArchivesTest) << {
     String group = project.group.replace(".", "/")
     new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
     String msg = "The distribution $project.group:$project.name:$project.version already exists.";
-    System.err.printf("***%n*** %s%n***%n", msg);
+    System.err.printf("***%n*** %s%n", msg);
+
+    for (String diff : comparePoms(project)) {
+      System.err.printf("*** %s%n", diff);
+    }
+    System.err.printf("***%n");
+
   } catch (FileNotFoundException ignored) {
     println("Not Found: $project.group:$project.name:$project.version");
   }
-  
-  Set<String> diffs = comparePoms(project);
-  if (diffs.size() > 0) System.err.printf("***%n");
 
-  for (String diff : diffs) {
-    System.err.println("*** %s%n", diff);
-  }
-
-  if (diffs.size() > 0) System.err.printf("***%n");
 }
 
 uploadArchives {
