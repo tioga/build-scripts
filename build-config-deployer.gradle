@@ -67,7 +67,7 @@ uploadArchives {
           url = pomScmUrl
           connection = pomScmConnection
         }
-        developers {
+        developers {[
           developer {
             id = 'SireInsectus'
             name = 'Jacob D. Parr'
@@ -77,7 +77,7 @@ uploadArchives {
             id = 'harlan'
             name = 'Harlan'
             email = 'harlan.work@gmail.com'
-          }
+          }]
         }
       }
     }
