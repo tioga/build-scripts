@@ -17,7 +17,7 @@ task (uploadArchivesTest) << {
 
     Set<String> diffs = comparePoms(project);
     if (diffs.isEmpty()) {
-      System.err.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
+      System.err.printf("***%n*** Already Exists: $project.group:$project.name:$project.version%n***%n");
     } else {
       System.err.printf("***%n*** Mismatches in $project.group:$project.name:$project.version.%n");
       for (String diff : diffs) System.err.printf("***   %s%n", diff);
@@ -25,7 +25,7 @@ task (uploadArchivesTest) << {
     }
     
   } catch (FileNotFoundException ignored) {
-    System.out.printf("***%n*** Not Found: $project.group:$project.name:$project.version%n***%n");
+    System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n");
   }
 }
 
