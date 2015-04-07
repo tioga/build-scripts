@@ -18,7 +18,7 @@ task (uploadArchivesTest) << {
     if (diffs.isEmpty()) {
       System.err.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
     } else {
-      System.err.printf("*** Mismatches: $project.group:$project.name:$project.version.%n");
+      System.err.printf("*** Mismatches in $project.group:$project.name:$project.version.%n");
     }
     
     for (String diff : diffs) {
