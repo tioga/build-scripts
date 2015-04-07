@@ -52,7 +52,7 @@ uploadArchives {
       pom.artifactId = project.name
       pom.version = project.version
       pom.packaging = 'jar'
-      pom.project = {
+      pom.project {
         name = project.name
         description = pomProjectDescription
         url = 'http://www.cosmicpush.com'
