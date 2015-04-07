@@ -12,8 +12,6 @@ task (uploadArchivesTest) << {
     String group = project.group.replace(".", "/")
     new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
     
-    System.err.printf("***%n");
-
     Set<String> diffs = comparePoms(project);
     if (diffs.isEmpty()) {
       System.err.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
@@ -37,8 +35,6 @@ uploadArchives {
     try {
       String group = project.group.replace(".", "/")
       new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
-
-      System.err.printf("***%n");
 
       Set<String> diffs = comparePoms(project);
       if (diffs.isEmpty()) {
