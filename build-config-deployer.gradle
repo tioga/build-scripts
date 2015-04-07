@@ -72,6 +72,11 @@ uploadArchives {
             id = 'SireInsectus'
             name = 'Jacob D. Parr'
             email = 'me@jacobparr.com'
+          },
+          developer {
+            id = 'harlan'
+            name = 'Harlan'
+            email = 'harlan.work@gmail.com'
           }
         }
       }
