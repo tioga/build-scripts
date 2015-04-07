@@ -11,7 +11,7 @@ task (uploadArchivesTest) << {
   try {
     String group = project.group.replace(".", "/")
     new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
-    List<String> diffs = comparePoms(project);
+    Set<String> diffs = comparePoms(project);
     
     System.err.printf("***%n");
 
