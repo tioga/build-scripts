@@ -16,13 +16,13 @@ task (uploadArchivesTest) << {
     System.err.printf("***%n");
 
     if (diffs.isEmpty()) {
-      System.err.printf("*** The distribution $project.group:$project.name:$project.version already exists.%n");
+      System.err.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
     } else {
-      System.err.printf("*** Mismatches in $project.group:$project.name:$project.version.%n");
+      System.err.printf("*** Mismatches: $project.group:$project.name:$project.version.%n");
     }
     
     for (String diff : diffs) {
-      System.err.printf("*** %s%n", diff);
+      System.err.printf("***   %s%n", diff);
     }
     System.err.printf("***%n");
 
@@ -94,13 +94,13 @@ private Set<String> comparePoms(project) {
   for (String key : oldDependencies.keySet()) {
     String oldVal = oldDependencies.get(key);
     String newVal = newDependencies.get(key);
-    if (oldVal != newVal) missing.add("  $key: old=$oldVal, new=$newVal")
+    if (oldVal != newVal) missing.add("$key: $oldVal vs $newVal")
   }
 
   for (String key : newDependencies.keySet()) {
     String oldVal = oldDependencies.get(key);
     String newVal = newDependencies.get(key);
-    if (oldVal != newVal) missing.add("  $key: old=$oldVal, new=$newVal")
+    if (oldVal != newVal) missing.add("$key: $oldVal vs $newVal")
   }
 
   return missing;
