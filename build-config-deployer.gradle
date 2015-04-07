@@ -17,7 +17,7 @@ task (uploadArchivesTest) << {
 
     Set<String> diffs = comparePoms(project);
     if (diffs.isEmpty()) {
-      System.err.printf("***%n*** Already Exists: $project.group:$project.name:$project.version%n***%n");
+      System.out.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
     } else {
       System.err.printf("***%n*** Mismatches in $project.group:$project.name:$project.version.%n");
       for (String diff : diffs) System.err.printf("***   %s%n", diff);
