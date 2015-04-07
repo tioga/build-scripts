@@ -94,13 +94,13 @@ private Set<String> comparePoms(project) {
   for (String key : oldDependencies.keySet()) {
     String oldVal = oldDependencies.get(key);
     String newVal = newDependencies.get(key);
-    if (oldVal != newVal) missing.add(String.format("%-30s: $oldVal vs $newVal"), key)
+    if (oldVal != newVal) missing.add(String.format("%-30s: $oldVal vs $newVal", key))
   }
 
   for (String key : newDependencies.keySet()) {
     String oldVal = oldDependencies.get(key);
     String newVal = newDependencies.get(key);
-    if (oldVal != newVal) missing.add(String.format("%-30s: $oldVal vs $newVal"), key)
+    if (oldVal != newVal) missing.add(String.format("%-30s: $oldVal vs $newVal", key))
   }
 
   return missing;
