@@ -11,10 +11,10 @@ task (uploadArchivesTest) << {
   try {
     String group = project.group.replace(".", "/")
     new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
-    Set<String> diffs = comparePoms(project);
     
     System.err.printf("***%n");
 
+    Set<String> diffs = comparePoms(project);
     if (diffs.isEmpty()) {
       System.err.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
     } else {
@@ -37,8 +37,21 @@ uploadArchives {
     try {
       String group = project.group.replace(".", "/")
       new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
-      String msg = "The distribution $project.group:$project.name:$project.version already exists.";
-      System.err.printf("***%n*** %s%n***%n", msg);
+
+      System.err.printf("***%n");
+
+      Set<String> diffs = comparePoms(project);
+      if (diffs.isEmpty()) {
+        System.err.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
+      } else {
+        System.err.printf("*** Mismatches in $project.group:$project.name:$project.version.%n");
+      }
+    
+      for (String diff : diffs) {
+        System.err.printf("***   %s%n", diff);
+      }
+      System.err.printf("***%n");
+
       throw new StopExecutionException(msg);
     } catch (FileNotFoundException ignored) {/* It's OK to deploy */}
   }
