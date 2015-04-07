@@ -52,29 +52,7 @@ uploadArchives {
       pom.artifactId = project.name
       pom.version = project.version
       pom.packaging = 'jar'
-      pom.project {
-        name = project.name
-        description = "Push Server"
-        url = 'http://www.cosmicpush.com'
-        licenses {
-          license {
-            name = 'Apache License, Version 2.0'
-            url = 'http://www.apache.org/licenses/LICENSE-2.0'
-            distribution = 'repo'
-          }
-        }
-        scm {
-            url = 'https://github.com/cosmic-push'
-            connection = 'https://github.com/cosmic-push/push-server.git'
-        }
-        developers {
-            developer {
-                id = 'SireInsectus'
-                name = 'Jacob D. Parr'
-                email = 'jacob.parr@gmail.com'
-            }
-        }
-      }
+      pom.project = pomProject
     }
   }
 }
