@@ -7,7 +7,7 @@ signing {
   sign configurations.archives
 }
 
-task (uploadArchivesTest) << {
+task uploadArchivesTest(dependsOn: install) << {
   try {
     System.out.flush();
     System.err.flush(); 
