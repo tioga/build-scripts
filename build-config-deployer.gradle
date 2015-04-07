@@ -11,10 +11,20 @@ task (uploadArchivesTest) << {
   try {
     String group = project.group.replace(".", "/")
     new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
-    println("*EXISTING*   $project.group:$project.name:$project.version");
+    String msg = "The distribution $project.group:$project.name:$project.version already exists.";
+    System.err.printf("***%n*** %s%n***%n", msg);
   } catch (FileNotFoundException ignored) {
     println("Not Found: $project.group:$project.name:$project.version");
   }
+  
+  Set<String> diffs = comparePoms(project);
+  if (diffs.size() > 0) System.err.printf("***%n");
+
+  for (String diff : diffs) {
+    System.err.println("*** %s%n", diff);
+  }
+
+  if (diffs.size() > 0) System.err.printf("***%n");
 }
 
 uploadArchives {
@@ -63,4 +73,78 @@ uploadArchives {
       }
     }
   }
+}
+
+private Set<String> comparePoms(project) {
+  String group = project.group.replace(".", "/")
+
+  String oldPom = new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").text
+  Map<String,String> oldDependencies = parseDependencies(oldPom);
+
+  String newPom = file("build\\poms\\pom-default.xml").text
+  Map<String,String> newDependencies = parseDependencies(newPom);
+
+  Set<String> missing = new TreeSet<>();
+
+  for (String key : oldDependencies.keySet()) {
+    String oldVal = oldDependencies.get(key);
+    String newVal = newDependencies.get(key);
+    if (oldVal != newVal) missing.add("Dependency mismatch for $key: old=$oldVal, new=$newVal")
+  }
+
+  for (String key : newDependencies.keySet()) {
+    String oldVal = oldDependencies.get(key);
+    String newVal = newDependencies.get(key);
+    if (oldVal != newVal) missing.add("Dependency mismatch for $key: old=$oldVal, new=$newVal")
+  }
+
+  return missing;
+}
+
+private Map<String,String> parseDependencies(String text) {
+
+  Map<String,String> map = new HashMap<>();
+
+  text = getTags(text, "dependencies").get(0);
+
+  List<String> dependencies = getTags(text, "dependency");
+
+  for (String dependency : dependencies) {
+
+    List<String> tags = getTags(dependency, "groupId");
+    String groupId = tags.size() == 0 ? null : tags.get(0);
+
+    tags = getTags(dependency, "artifactId");
+    String artifactId = tags.size() == 0 ? null : tags.get(0);
+
+    tags = getTags(dependency, "version");
+    String version = tags.size() == 0 ? null : tags.get(0);
+
+    tags = getTags(dependency, "scope");
+    String scope = tags.size() == 0 ? "compile" : tags.get(0);
+    scope = "compile".equals(scope) ? "" : "["+scope+"]"
+
+    String key = groupId+":"+artifactId
+    String value = version+scope;
+    map.put(key, value)
+  }
+
+  return map;
+}
+
+private List<String> getTags(String text, String tagName) {
+  List<String> tags = new ArrayList<>();
+
+  int posA = text.indexOf("<$tagName>")
+  int posB = text.indexOf("</$tagName>", posA)
+
+  while (posA >=0 && posB >= 0) {
+    String content = text.substring(posA+2+tagName.length(), posB)
+    tags.add(content)
+
+    posA = text.indexOf("<$tagName>", posB)
+    posB = text.indexOf("</$tagName>", posA)
+  }
+
+  return tags
 }
