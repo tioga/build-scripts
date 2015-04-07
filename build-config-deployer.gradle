@@ -10,7 +10,7 @@ signing {
 task (uploadArchivesTest) << {
   try {
     System.out.flush();
-    System.err.flush();
+    System.err.flush(); 
   
     String group = project.group.replace(".", "/")
     new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
