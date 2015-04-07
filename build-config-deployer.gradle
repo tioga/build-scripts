@@ -16,8 +16,9 @@ task (uploadArchivesTest) << {
     System.err.printf("***%n");
 
     if (diffs.isEmpty()) {
-      String msg = "The distribution $project.group:$project.name:$project.version already exists."
-      System.err.printf("*** %s%n", msg);
+      System.err.printf("*** The distribution $project.group:$project.name:$project.version already exists.%n");
+    } else {
+      System.err.printf("*** Mismatches in $project.group:$project.name:$project.version.%n");
     }
     
     for (String diff : diffs) {
