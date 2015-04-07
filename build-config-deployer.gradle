@@ -55,7 +55,7 @@ uploadArchives {
       pom.project {
         name = project.name
         description = pomProjectDescription
-        url = 'http://www.cosmicpush.com'
+        url = pomUrl
         licenses {
           license {
             name = 'Apache License, Version 2.0'
@@ -64,14 +64,14 @@ uploadArchives {
           }
         }
         scm {
-          url = 'https://github.com/cosmic-push'
-          connection = 'https://github.com/cosmic-push/push-server.git'
+          url = pomScmUrl
+          connection = pomScmConnection
         }
         developers {
           developer {
             id = 'SireInsectus'
             name = 'Jacob D. Parr'
-            email = 'jacob.parr@gmail.com'
+            email = 'me@jacobparr.com'
           }
         }
       }
