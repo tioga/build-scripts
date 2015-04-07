@@ -9,7 +9,7 @@ signing {
 
 task (uploadArchivesTest) << {
   try {
-    def group = project.group.replace(".", "/")
+    String group = project.group.replace(".", "/")
     new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
     println("*EXISTING*   $project.group:$project.name:$project.version");
   } catch (FileNotFoundException ignored) {
@@ -20,7 +20,7 @@ task (uploadArchivesTest) << {
 uploadArchives {
   doFirst() {
     try {
-      def group = project.group.replace(".", "/")
+      String group = project.group.replace(".", "/")
       new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
       String msg = "The distribution $project.group:$project.name:$project.version already exists.";
       System.err.printf("***%n*** %s%n***%n", msg);
