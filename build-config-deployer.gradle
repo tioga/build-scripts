@@ -37,8 +37,7 @@ uploadArchives {
       for (String diff : diffs) System.err.printf("***   %s%n", diff);
       System.err.printf("***%n");
 
-      String msg = String.format("%s:%s:%s already exists.", project.group, project.name, project.version)
-      throw new StopExecutionException(msg);
+      throw new StopExecutionException(String.format("%s:%s:%s already exists.", project.group, project.name, project.version));
       
     } catch (FileNotFoundException ignored) {/* It's OK to deploy */}
   }
