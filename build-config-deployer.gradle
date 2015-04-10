@@ -53,11 +53,8 @@ uploadArchives {
     mavenDeployer {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-				String username = System.getenv("TIOGA_SONATYPE_USERNAME");
-				if (username == null) throw new StopExecutionException("Sonatype's username environment variable (TIOGA_SONATYPE_USERNAME) was not specified.");
-				String password = System.getenv("TIOGA_SONATYPE_PASSWORD")
-				if (password == null) throw new StopExecutionException("Sonatype's password environment variable (TIOGA_SONATYPE_PASSWORD) was not specified.");
-				authentication(username, password);
+				authentication(System.getenv("TIOGA_SONATYPE_USERNAME"), 
+											 System.getenv("TIOGA_SONATYPE_PASSWORD"));
       }
 
       pom.groupId = project.group
