@@ -53,8 +53,10 @@ uploadArchives {
     mavenDeployer {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-				authentication(System.getenv("TIOGA_SONATYPE_USERNAME"), 
-											 System.getenv("TIOGA_SONATYPE_PASSWORD"));
+				String username = System.getenv("TIOGA_SONATYPE_USERNAME");
+				String password = System.getenv("TIOGA_SONATYPE_PASSWORD")
+				authentication(userName: username == null ? "anonymous" : username, 
+				               password: password == null ? "password" : password);
       }
 
       pom.groupId = project.group
