@@ -1,21 +1,20 @@
 apply plugin: "maven"
-apply plugin: "signing"
 
-uploadArchives.dependsOn install
-
-signing {
-  sign configurations.archives
-}
-
-/*
-gradle.taskGraph.whenReady { taskGraph ->
+if (System.getenv("TIOGA_SIGNING_KEY_ID") == null) {
+	System.err.println("Skipping signature");
+} else {
+  apply plugin: "signing"
+  signing {
+    sign configurations.archives
+  }
+  gradle.taskGraph.whenReady { taskGraph ->
     if (taskGraph.allTasks.any { it instanceof Sign }) {
-        allprojects { ext."signing.keyId" =             System.getenv("TIOGA_SIGNING_KEY_ID") }
-        allprojects { ext."signing.password" =          System.getenv("TIOGA_SIGNING_PASSWORD") }
-        allprojects { ext."signing.secretKeyRingFile" = System.getenv("TIOGA_SIGNING_FILE") }
+      allprojects { ext."signing.keyId" =             System.getenv("TIOGA_SIGNING_KEY_ID") }
+      allprojects { ext."signing.password" =          System.getenv("TIOGA_SIGNING_PASSWORD") }
+      allprojects { ext."signing.secretKeyRingFile" = System.getenv("TIOGA_SIGNING_FILE") }
     }
+  }
 }
-*/
 
 task uploadArchivesTest(dependsOn: install) << {
   try {
@@ -175,4 +174,15 @@ private List<String> getTags(String text, String tagName) {
   }
 
   return tags
+}
+
+class FileBinaryCategory{   
+    def static leftShift(File file, URL url){   
+       url.withInputStream {is->
+            file.withOutputStream {os->
+                def bs = new BufferedOutputStream( os )
+                bs << is                   
+            }
+        }
+    }   
 }
