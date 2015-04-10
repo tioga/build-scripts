@@ -57,7 +57,7 @@ uploadArchives {
 				if (username == null) username = "username";
 				String password = System.getenv("TIOGA_SONATYPE_PASSWORD")
 				if (password == null) password = "password";
-				authentication(userName, password);
+				authentication(userName: username, password: password);
       }
 
       pom.groupId = project.group
