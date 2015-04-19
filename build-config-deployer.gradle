@@ -38,6 +38,14 @@ task uploadArchivesTest(dependsOn: install) << {
   }
 }
 
+install {
+  repositories.mavenInstaller {
+    pom.withXml {
+      updatePom(it.asString())
+    }
+  }
+}
+
 uploadArchives {
   doFirst() {
     try {
@@ -99,13 +107,16 @@ uploadArchives {
         }
       }
       pom.withXml {
-        StringBuilder builder = it.asString()
-        String pom = builder.toString()
-        pom = pom.replace("<version>+</version>", "<version>RELEASE</version>");
-        builder.replace(0, builder.length(), pom)
+        updatePom(it.asString())
       }
     }
   }
+}
+
+private void updatePom(StringBuilder builder) {
+  String pom = builder.toString()
+  pom = pom.replace("<version>+</version>", "<version>RELEASE</version>");
+  builder.replace(0, builder.length(), pom)
 }
 
 private Set<String> comparePoms(project) {
