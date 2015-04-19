@@ -115,7 +115,7 @@ uploadArchives {
 
 private void updatePom(StringBuilder builder) {
   String pom = builder.toString()
-  pom = pom.replace("<version>+</version>", "<version>RELEASE</version>");
+  pom = pom.replace(".+</version>", ".RELEASE</version>");
   builder.replace(0, builder.length(), pom)
 }
 
