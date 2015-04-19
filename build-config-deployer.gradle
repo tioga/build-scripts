@@ -62,10 +62,10 @@ uploadArchives {
     mavenDeployer {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-				authentication(userName: System.getenv("TIOGA_SONATYPE_USERNAME"), 
-											 password: System.getenv("TIOGA_SONATYPE_PASSWORD"));
+        authentication(userName: System.getenv("TIOGA_SONATYPE_USERNAME"), 
+                       password: System.getenv("TIOGA_SONATYPE_PASSWORD"));
       }
-
+      
       pom.groupId = project.group
       pom.artifactId = project.name
       pom.version = project.version
@@ -97,6 +97,15 @@ uploadArchives {
             email = 'harlan.work@gmail.com'
           }]
         }
+      }
+      pom.withXml {
+        System.out.println()
+				File file = new File(project.buildDir, "poms/pom-default.xml")
+				System.out.println("File: " + file)
+        StringBuilder builder = it.asString()
+        String pom = builder.toString()
+        pom = pom.replace(".+</version>", ".[0,)</version>");
+        builder.replace(0, builder.length(), pom)
       }
     }
   }
