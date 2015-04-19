@@ -99,9 +99,6 @@ uploadArchives {
         }
       }
       pom.withXml {
-        System.out.println()
-				File file = new File(project.buildDir, "poms/pom-default.xml")
-				System.out.println("File: " + file)
         StringBuilder builder = it.asString()
         String pom = builder.toString()
         pom = pom.replace(".+</version>", ".[0,)</version>");
