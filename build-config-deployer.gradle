@@ -101,7 +101,7 @@ uploadArchives {
       pom.withXml {
         StringBuilder builder = it.asString()
         String pom = builder.toString()
-        pom = pom.replace(".+</version>", ".[0,)</version>");
+        pom = pom.replace("<version>+</version>", "<version>RELEASE</version>");
         builder.replace(0, builder.length(), pom)
       }
     }
