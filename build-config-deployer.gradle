@@ -18,23 +18,31 @@ if (System.getenv("TIOGA_SIGNING_KEY_ID") == null) {
 
 task uploadArchivesTest(dependsOn: install) << {
   try {
-    System.out.flush();
-    System.err.flush(); 
-  
-    String group = project.group.replace(".", "/")
-    new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
+		return testRepo("https://repo1.maven.org/maven2");
+  } catch (FileNotFoundException ignored) {/* ignored */}
 
-    Set<String> diffs = comparePoms(project);
-    if (diffs.isEmpty()) {
-      System.out.printf("*** Already Exists: $project.group:$project.name:$project.version%n");
-    } else {
-      System.err.printf("***%n*** Mismatches in $project.group:$project.name:$project.version.%n");
-      for (String diff : diffs) System.err.printf("***   %s%n", diff);
-      System.err.printf("***%n");
-    }
+  try {
+		return testRepo("https://oss.sonatype.org/content/repositories/releases");
+  } catch (FileNotFoundException ignored) {/* ignored */}
+  
+  System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n");
+}
+
+private testRepo(String repo) {
+  System.out.flush();
+  System.err.flush(); 
+
+  String group = project.group.replace(".", "/")
+  new URL("$repo/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
+
+  Set<String> diffs = comparePoms(project);
+  if (diffs.isEmpty()) {
+    System.out.printf("*** Already Exists: $project.group:$project.name:$project.version ($repo)%n");
     
-  } catch (FileNotFoundException ignored) {
-    System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n");
+  } else {
+    System.err.printf("***%n*** Mismatches in $project.group:$project.name:$project.version ($repo)%n");
+    for (String diff : diffs) System.err.printf("***   %s%n", diff);
+    System.err.printf("***%n");
   }
 }
 
