@@ -18,11 +18,13 @@ if (System.getenv("TIOGA_SIGNING_KEY_ID") == null) {
 
 task uploadArchivesTest(dependsOn: install) << {
   try {
-		return testRepo("https://repo1.maven.org/maven2");
+    testRepo("https://repo1.maven.org/maven2");
+    return; // The artifact was found.
   } catch (FileNotFoundException ignored) {/* ignored */}
 
   try {
-		return testRepo("https://oss.sonatype.org/content/repositories/releases");
+    testRepo("https://oss.sonatype.org/content/repositories/releases");
+    return; // The artifact was found.
   } catch (FileNotFoundException ignored) {/* ignored */}
   
   System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n");
@@ -35,7 +37,7 @@ private testRepo(String repo) {
   String group = project.group.replace(".", "/")
   new URL("$repo/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
 
-  Set<String> diffs = comparePoms(project);
+  Set<String> diffs = comparePoms(repo, project);
   if (diffs.isEmpty()) {
     System.out.printf("*** Already Exists: $project.group:$project.name:$project.version ($repo)%n");
     
@@ -61,9 +63,9 @@ uploadArchives {
       System.err.flush();
 
       String group = project.group.replace(".", "/")
-      new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").getText()
+			String repo = "https://repo1.maven.org/maven2";
 
-      Set<String> diffs = comparePoms(project);
+      Set<String> diffs = comparePoms(repo, project);
       if (diffs.isEmpty()) System.err.printf("***%n*** Already Exists: $project.group:$project.name:$project.version%n");
       else System.err.printf("***%n*** Mismatches in $project.group:$project.name:$project.version.%n");
 
@@ -127,10 +129,10 @@ private void updatePom(StringBuilder builder) {
   builder.replace(0, builder.length(), pom)
 }
 
-private Set<String> comparePoms(project) {
+private Set<String> comparePoms(repo, project) {
   String group = project.group.replace(".", "/")
 
-  String oldPom = new URL("https://repo1.maven.org/maven2/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").text
+  String oldPom = new URL("$repo/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").text
   Map<String,String> oldDependencies = parseDependencies(oldPom);
 
   String newPom = file("build\\poms\\pom-default.xml").text
