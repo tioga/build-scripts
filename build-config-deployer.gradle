@@ -23,9 +23,9 @@ task uploadArchivesTest(dependsOn: install) << {
     // sonatype before it ever makes it central, usually imeadiately after publishing.
     testRepo("https://oss.sonatype.org/content/repositories/releases");
     return; // The artifact was found.
-  } catch (FileNotFoundException ignored) {/* ignored */}
-  
-  System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n");
+  } catch (FileNotFoundException ex) {
+    System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n$ex.message%n");
+  }
 }
 
 private testRepo(String repo) {
