@@ -24,7 +24,8 @@ task uploadArchivesTest(dependsOn: install) << {
     testRepo("https://oss.sonatype.org/content/repositories/releases");
     return; // The artifact was found.
   } catch (FileNotFoundException ex) {
-    System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n$ex.message%n");
+    System.out.printf("*** Not Found: $project.group:$project.name:$project.version%n");
+    ex.printStackTrace();
   }
 }
 
