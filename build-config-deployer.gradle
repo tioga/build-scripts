@@ -136,7 +136,7 @@ private Set<String> comparePoms(repo, project) {
   String oldPom = new URL("$repo/"+group+"/"+project.name+"/"+project.version+"/"+project.name+"-"+project.version+".pom").text
   Map<String,String> oldDependencies = parseDependencies(oldPom);
 
-  String newPom = file("build\\poms\\pom-default.xml").text
+  String newPom = file("build/poms/pom-default.xml").text
   Map<String,String> newDependencies = parseDependencies(newPom);
 
   Set<String> missing = new TreeSet<>();
