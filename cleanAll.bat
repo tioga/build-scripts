@@ -11,11 +11,6 @@ call gradle -Dno-fail-version-conflict=true -q -p ../CouchAce clean
 echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning runners...
-call gradle -Dno-fail-version-conflict=true -q -p ../runners clean
-echo.
-if errorlevel 1 ( GOTO:eof )
-
 echo Cleaning lib...
 call gradle -Dno-fail-version-conflict=true -q -p ../lib clean
 echo.
@@ -31,6 +26,11 @@ call gradle -Dno-fail-version-conflict=true -q -p ../app clean
 echo.
 if errorlevel 1 ( GOTO:eof )
 
+echo Cleaning runners...
+call gradle -Dno-fail-version-conflict=true -q -p ../runners clean
+echo.
+if errorlevel 1 ( GOTO:eof )
+
 echo Cleaning Push...
 call gradle -Dno-fail-version-conflict=true -q -p ../Push clean
 echo.
@@ -43,6 +43,11 @@ if errorlevel 1 ( GOTO:eof )
 
 echo Cleaning Jobs...
 call gradle -Dno-fail-version-conflict=true -q -p ../Jobs clean
+echo.
+if errorlevel 1 ( GOTO:eof )
+
+echo Cleaning Photolab...
+call gradle -Dno-fail-version-conflict=true -q -p ../Photolab clean
 echo.
 if errorlevel 1 ( GOTO:eof )
 

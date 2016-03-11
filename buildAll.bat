@@ -11,11 +11,6 @@ call gradle -q -p ../CouchAce clean build
 echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Building runners...
-call gradle -q -p ../runners clean build
-echo.
-if errorlevel 1 ( GOTO:eof )
-
 echo Building lib...
 call gradle -q -p ../lib clean build
 echo.
@@ -31,6 +26,11 @@ call gradle -q -p ../app clean build
 echo.
 if errorlevel 1 ( GOTO:eof )
 
+echo Building runners...
+call gradle -q -p ../runners clean build
+echo.
+if errorlevel 1 ( GOTO:eof )
+
 echo Building Push...
 call gradle -q -p ../Push clean build
 echo.
@@ -43,6 +43,11 @@ if errorlevel 1 ( GOTO:eof )
 
 echo Building Jobs...
 call gradle -q -p ../Jobs clean build
+echo.
+if errorlevel 1 ( GOTO:eof )
+
+echo Building Photolab...
+call gradle -q -p ../Photolab clean build
 echo.
 if errorlevel 1 ( GOTO:eof )
 
