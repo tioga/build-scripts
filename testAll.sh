@@ -1,10 +1,9 @@
 gradle -Dno-fail-version-conflict=true -p ../dev clean test
 gradle -Dno-fail-version-conflict=true -p ../CouchAce clean test
-gradle -Dno-fail-version-conflict=true -p ../runners clean test
 gradle -Dno-fail-version-conflict=true -p ../lib clean test
 gradle -Dno-fail-version-conflict=true -p ../apis clean test
 gradle -Dno-fail-version-conflict=true -p ../app clean test
+gradle -Dno-fail-version-conflict=true -p ../runners clean test
 gradle -Dno-fail-version-conflict=true -p ../Push clean test
 gradle -Dno-fail-version-conflict=true -p ../Notify clean test
 gradle -Dno-fail-version-conflict=true -p ../Jobs clean test
-gradle -Dno-fail-version-conflict=true -p ../runners clean test
