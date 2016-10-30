@@ -1,55 +1,69 @@
 @echo off
 cls
 
-echo Cleaning dev...
+
+
+echo.
+echo *** Cleaning Tioga Modules
+echo *
+
+echo * dev
 call gradle -Dno-fail-version-conflict=true -q -p ../dev clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning CouchAce...
+echo * CouchAce
 call gradle -Dno-fail-version-conflict=true -q -p ../CouchAce clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning lib...
+echo * lib
 call gradle -Dno-fail-version-conflict=true -q -p ../lib clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning apis...
+echo * apis
 call gradle -Dno-fail-version-conflict=true -q -p ../apis clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning app...
+echo * app
 call gradle -Dno-fail-version-conflict=true -q -p ../app clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning runners...
+echo * runners
 call gradle -Dno-fail-version-conflict=true -q -p ../runners clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning Push...
+
+
+echo.
+echo *** Cleaning Tioga Applications
+echo *
+
+
+echo * Push Server
 call gradle -Dno-fail-version-conflict=true -q -p ../Push clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning Notify...
+echo * Notify Server
 call gradle -Dno-fail-version-conflict=true -q -p ../Notify clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning Jobs...
+echo * Jobs Server
 call gradle -Dno-fail-version-conflict=true -q -p ../Jobs clean
-echo.
 if errorlevel 1 ( GOTO:eof )
 
-echo Cleaning Photolab...
-call gradle -Dno-fail-version-conflict=true -q -p ../Photolab clean
-echo.
+echo * Identity Server
+call gradle -Dno-fail-version-conflict=true -q -p ../Identity clean
 if errorlevel 1 ( GOTO:eof )
+
+echo * Photolab
+call gradle -Dno-fail-version-conflict=true -q -p ../Photolab clean
+if errorlevel 1 ( GOTO:eof )
+
+echo * Ack.IM
+call gradle -Dno-fail-version-conflict=true -q -p ../ackim/web clean
+if errorlevel 1 ( GOTO:eof )
+
+
 
 :eof
+echo.
 pause

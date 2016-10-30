@@ -46,6 +46,11 @@ call gradle -q -p ../Jobs clean build
 echo.
 if errorlevel 1 ( GOTO:eof )
 
+echo Building Identity...
+call gradle -q -p ../Identity clean build
+echo.
+if errorlevel 1 ( GOTO:eof )
+
 echo Building Photolab...
 call gradle -q -p ../Photolab clean build
 echo.

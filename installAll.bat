@@ -1,55 +1,94 @@
 @echo off
 cls
 
-echo Installing dev...
-call gradle -q -p ../dev clean build install
+
+
 echo.
+echo *** Installing Tioga Modules
+echo *
+
+echo * dev
+call gradle -q -p ../dev install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing CouchAce...
-call gradle -q -p ../CouchAce clean build install
-echo.
+echo * CouchAce
+call gradle -q -p ../CouchAce install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing lib...
-call gradle -q -p ../lib clean build install
-echo.
+echo * lib
+call gradle -q -p ../lib install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing apis...
-call gradle -q -p ../apis clean build install
-echo.
+echo * apis
+call gradle -q -p ../apis install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing app...
-call gradle -q -p ../app clean build install
-echo.
+echo * app
+call gradle -q -p ../app install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing runners...
-call gradle -q -p ../runners clean build install
-echo.
+echo * runners
+call gradle -q -p ../runners install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing Push...
-call gradle -q -p ../Push clean build install
+
+
 echo.
+echo *** Installing Tioga Clients
+echo *
+
+echo * Push
+call gradle -q -p ../push/tioga-push-client install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing Notify...
-call gradle -q -p ../Notify clean build install
-echo.
+echo * Notify
+call gradle -q -p ../notify/tioga-notify-client install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing Jobs...
-call gradle -q -p ../Jobs clean build install
-echo.
+echo * Jobs
+call gradle -q -p ../jobs/tioga-jobs-client install
 if errorlevel 1 ( GOTO:eof )
 
-echo Installing Photolab...
-call gradle -q -p ../Photolab clean build install
-echo.
+echo * Identity
+call gradle -q -p ../identity/tioga-identity-client install
 if errorlevel 1 ( GOTO:eof )
+
+echo * Ack.IM
+call gradle -q -p ../ackim/web/tioga-ackim-client install
+if errorlevel 1 ( GOTO:eof )
+
+
+
+echo.
+echo *** Installing Tioga Applications
+echo *
+
+echo * Push
+call gradle -q -p ../push install
+if errorlevel 1 ( GOTO:eof )
+
+echo * Notify
+call gradle -q -p ../notify install
+if errorlevel 1 ( GOTO:eof )
+
+echo * Jobs
+call gradle -q -p ../jobs install
+if errorlevel 1 ( GOTO:eof )
+
+echo * Identity
+call gradle -q -p ../identity install
+if errorlevel 1 ( GOTO:eof )
+
+echo * PhotoLab
+call gradle -q -p ../photolab install
+if errorlevel 1 ( GOTO:eof )
+
+echo * Ack.IM
+call gradle -q -p ../ackim/web install
+if errorlevel 1 ( GOTO:eof )
+
+
 
 :eof
+echo.
 pause
