@@ -4,7 +4,7 @@ echo *** Installing Tioga Applications
 echo *
 
 echo * Push
-call ../push/gradlew -q -p --parallel ../push install
+call ../push/gradlew -q -p ../push install
 if errorlevel 1 ( GOTO:eof )
 
 echo * Notify
