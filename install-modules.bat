@@ -4,25 +4,25 @@ echo *** Installing Tioga Modules
 echo *
 
 echo * dev
-call gradle -q -p ../dev install
+call ../dev/gradlew -q -p ../dev install
 if errorlevel 1 ( GOTO:eof )
 
 echo * CouchAce
-call gradle -q -p ../CouchAce install
+call ../CouchAce/gradlew -q -p ../CouchAce install
 if errorlevel 1 ( GOTO:eof )
 
 echo * lib
-call gradle -q -p ../lib install
+call ../lib/gradlew -q -p ../lib install
 if errorlevel 1 ( GOTO:eof )
 
 echo * apis
-call gradle -q -p ../apis install
+call ../apis/gradlew -q -p ../apis install
 if errorlevel 1 ( GOTO:eof )
 
 echo * app
-call gradle -q -p ../app install
+call ../app/gradlew -q -p ../app install
 if errorlevel 1 ( GOTO:eof )
 
 echo * runners
-call gradle -q -p ../runners install
+call ../runners/gradlew -q -p ../runners install
 if errorlevel 1 ( GOTO:eof )

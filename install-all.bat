@@ -1,7 +1,6 @@
 @echo off
 cls
 
-
 call install-modules.bat
 if errorlevel 1 ( GOTO:eof )
 
